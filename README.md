@@ -25,27 +25,14 @@ VH8助手通过设备固件内已有的厂商特权命令服务执行受限的�
 4. 如果要使用电源键息屏，单独打开电源键卡片，按提示短按测试熄屏，再按一次测试唤醒；测试通过后再启用。
 5. 通过“更多”查看本机备份位置与操作记录。备份不包含完整系统固件、所有应用私有数据或账号数据；请将重要备份另行复制保存。
 
-## 从 GitHub 下载并合并分卷
+## 下载文件
 
-APK 和源码 ZIP 因文件大小拆成 `.part00` 至 `.part08`。请下载对应文件的全部分卷，并在 Windows PowerShell 中切换到下载目录后执行：
+直接下载仓库根目录中的完整文件，无需合并：
 
-```powershell
-$prefix = "VH8助手-v24.apk"
-$out = [IO.File]::Create($prefix)
-try {
-  Get-ChildItem "$prefix.part*" | Sort-Object Name | ForEach-Object {
-    $bytes = [IO.File]::ReadAllBytes($_.FullName)
-    $out.Write($bytes, 0, $bytes.Length)
-  }
-} finally { $out.Dispose() }
-```
+- `VH8助手-v24.apk`：2,962,714 字节，SHA-256 `50DF995C93765817DD796E4975D754492BA7BBE3848634B15B4D2B98EFA26F93`
+- `vh8-assistant-source.zip`：2,941,910 字节，SHA-256 `7F313FE41340A9CE1A15BA2B2E8D61D63AFF44BDFBD6B117F3A5EC2A49CC78A5`
 
-合并源码时把 `$prefix` 改成 `vh8-assistant-source.zip`。核对文件：
-
-- APK：2,962,714 字节；SHA-256 `50DF995C93765817DD796E4975D754492BA7BBE3848634B15B4D2B98EFA26F93`
-- 源码 ZIP：2,941,910 字节；SHA-256 `7F313FE41340A9CE1A15BA2B2E8D61D63AFF44BDFBD6B117F3A5EC2A49CC78A5`
-
-可用 PowerShell 的 `Get-FileHash .\VH8助手-v24.apk -Algorithm SHA256` 检查 APK。
+在 Windows PowerShell 中可用 `Get-FileHash .\\VH8助手-v24.apk -Algorithm SHA256` 校验下载的 APK。
 
 ## 源码构建
 
